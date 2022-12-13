@@ -4,6 +4,7 @@ import { AddProductComponent } from './admin/add-product/add-product.component';
 import { AddUserComponent } from './admin/add-user/add-user.component';
 import { WelcomeComponent } from './admin/welcome/welcome.component';
 import { AuthentificationGuard } from './auth/authentification.guard';
+import { FormGuard } from './auth/form.guard';
 import { PermissionGuard } from './auth/permission.guard';
 import { HomeComponent } from './home/home.component';
 
@@ -14,8 +15,16 @@ const routes: Routes = [
     canActivate:[AuthentificationGuard],
     canActivateChild:[PermissionGuard],
     children: [
-      { path: 'add-user', component: AddUserComponent },
-      { path: 'add-product', component: AddProductComponent },
+      { 
+        path: 'add-user', 
+        component: AddUserComponent,
+        canDeactivate:[FormGuard]
+      },
+      { 
+        path: 'add-product', 
+        component: AddProductComponent,
+        canDeactivate:[FormGuard]
+      },
     ],
   },
   {
